@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile" name="Sample Ant build demo">
+	<!-- <target name="run" depends="compile">
+		<java classname="com.mit.poc.AntDemo">
+			<classpath path="staging" />
+		</java>
+	</target> -->
+	
+	<property name="src.dir" location="src" />
+  	<property name="build.dir" location="lib" />
+	<property name="stage.dir" location="staging" />
+	
+	<path id="classpath">
+		<fileset dir="lib">
+    		<include name="**/*.jar" />
+  		</fileset>
+	</path>
+	
+	<target name="clean">
+    	<delete dir="${build.dir}" />
+		<delete dir="${stage.dir}" />
+  	</target>
+  	
+  	<target name="makedir">
+    	<mkdir dir="${build.dir}" />
+		<mkdir dir="${stage.dir}" />
+  	</target>
+	
+	<target name="copy">
+		<copy todir="/home/appadmin/builds/workspace/workspace/AntPipeline/PIM5Poc/lib" overwrite="true">
+			<fileset dir="/home/appadmin/builds/workspace/workspace/AntPipeline/PIMjars" includes="**/*.jar" />
+		</copy>
+	</target>
+	
+	<target name="compile" depends="clean,makedir,copy">
+		<javac classpathref="classpath" includeantruntime="false" srcdir="${src.dir}" destdir="${stage.dir}" />	
+		<jar destfile="newPIMMDMAutomation.jar" basedir="${stage.dir}" />		
+	</target>
+</project>
