@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    tools {
+       ant "Ant"
+       jdk "PIMJAVA"
+    }
+    stages {
+        stage('Git Clone Stage') {
+            steps {
+                git branch: 'main', credentialsId: 'gittest', url: 'https://github.com/sivaprasadkmastech/PIM.git'
+            }
+        }
+        stage('Build Stage') {
+            steps {
+                //sh "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.362.b09-1.fc36.x86_64/bin"//
+                sh "ant -f  /home/appadmin/builds/workspace/workspace/AntPipeline/PIM5Poc/build.xml"
+            }
+        }
+        stage('Build copy Stage to local folder') {
+            steps {
+                // sh "scp /home/appadmin/builds/workspace/Copywar/simple/target/simple.war /home/appadmin/oldbuilds/Copywar/" //
+                // sh 'scp /home/appadmin/builds/workspace/Copywar/simple/target/simple.war /home/appadmin/oldbuilds/Copywar/simple_"$(date +%d-%m-%Y_%H:%M:%S)".war' //
+                sh 'scp /home/appadmin/builds/workspace/workspace/AntPipeline/PIM5Poc/newPIMMDMAutomation.jar /home/appadmin/oldbuilds/AntPipeline/newPIMMDMAutomation_1."${BUILD_NUMBER}".0.jar'
+            }
+        }
+        stage('Deploy Stage') {
+          steps {
+            sshagent(['tomcatssh']) {
+            sh "scp -v -o StrictHostKeyChecking=no /home/appadmin/builds/workspace/workspace/AntPipeline/PIM5Poc/newPIMMDMAutomation.jar root@10.100.15.41:/opt/IBM/MDM/jars/"
+              } 
+           }
+        }
+        stage('Service Stop and start Stage') {
+          steps {
+            sh "pwd" 
+            sh "chmod 777 /home/appadmin/builds/workspace/workspace/AntPipeline/test.sh"
+            // sh "chmod 777 /home/appadmin/builds/workspace/workspace/AntPipeline/SampleAnt/deploy.sh" //
+            sh "/home/appadmin/builds/workspace/workspace/AntPipeline/test.sh"
+          }
+        }
+    }
+ }
