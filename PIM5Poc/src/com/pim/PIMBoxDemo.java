@@ -18,10 +18,10 @@ public class PIMBoxDemo implements ScriptingSandboxFunction {
 	public void scriptingSandbox(ScriptingSandboxFunctionArguments arg0) {
 		// TODO Auto-generated method stub
 		CatalogManager ctgMgr = ctx.getCatalogManager();
-		Catalog ctg = ctgMgr.getCatalog("Automation_poc_Catalog");
+		Catalog ctg = ctgMgr.getCatalog("Product Information");
 		Logger logger = ctx.getLogger("ipm.log");
 		logger.logInfo("WELCOME TO AUTOMATION DEPLOYMENT ");
-		logger.logInfo("Demo Testing Ant build on 22-02-2023 : 12:30 ****** ");
+		logger.logInfo("Demo Testing Ant build on 26-09-2023 : 8:30 ****** ");
 		
 		PIMCollection<Item> allItems=ctg.getItems();
 		for(Item oitem: allItems)
