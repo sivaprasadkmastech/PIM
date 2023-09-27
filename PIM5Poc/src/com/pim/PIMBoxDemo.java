@@ -28,7 +28,7 @@ public class PIMBoxDemo implements ScriptingSandboxFunction {
 		{
 			logger.logInfo("Testing for item " +oitem.getPrimaryKey());
 			logger.logInfo(oitem.getPrimaryKey());
-			logger.logInfo(oitem.getAttributeValue("Automation_poc/Automation_Attrib_Desc"));
+			//logger.logInfo(oitem.getAttributeValue("Automation_poc/Automation_Attrib_Desc"));
 			
 		}
 
