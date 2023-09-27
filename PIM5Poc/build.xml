@@ -27,8 +27,8 @@
   	</target>
 	
 	<target name="copy">
-		<copy todir="/home/appadmin/builds/workspace/workspace/AntPipeline/PIM5Poc/lib" overwrite="true">
-			<fileset dir="/home/appadmin/builds/workspace/workspace/AntPipeline/PIMjars" includes="**/*.jar" />
+		<copy todir="/home/appadmin/workspace/AntPipeline/PIM5Poc/lib" overwrite="true">
+			<fileset dir="/home/appadmin/workspace/AntPipeline/PIMjars" includes="**/*.jar" />
 		</copy>
 	</target>
 	
